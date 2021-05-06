@@ -1,9 +1,26 @@
 const tag = "[Controller]";
 
 export default class Controller {
-    constructor(store, views) {
+    constructor(store, { searchFormView }) {
+        console.log(tag, "constructor");
         this.store = store;
 
-        
+        this.searchFormView = searchFormView;
+
+        this.subscribeViewEvents();
+    }
+
+    subscribeViewEvents() {
+        this.searchFormView
+            .on("@submit", (event) => this.search(event.detail.value))
+            .on("@reset", () => this.reset());
+    }
+
+    search(keyword) {
+        console.log(tag, "search", keyword);
+    }
+
+    reset() {
+        console.log(tag, "reset");
     }
 }
